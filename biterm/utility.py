@@ -12,7 +12,7 @@ def vec_to_biterms(X):
     return B_d
 
 
-def topic_summuary(P_wz, X, V, M, verbose=True):
+def topic_summuary(P_wz, X, V, M, save_str, verbose=True):
     res = {
         'coherence': [0] * len(P_wz),
         'top_words': [[None]] * len(P_wz)
@@ -34,6 +34,11 @@ def topic_summuary(P_wz, X, V, M, verbose=True):
         res['top_words'][z] = W_z
         if verbose: print('Topic {} | Coherence={:0.2f} | Top words= {}'.format(z, C_z, ' '.join(W_z)))
     print ('Average topic coherence for the top words is {}'.format(sum(res['coherence'])/len(res['coherence'])))
+    
+    # 我们想要保存结果
+    wf = open(save_str, 'w')
+    wf.write(result_str)
+    
     return res
 
 class Lexicon:
