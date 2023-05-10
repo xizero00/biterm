@@ -74,6 +74,12 @@ class oBTM:
                 P_zbi = self.theta_z * self.phi_wz[b[0], :] * self.phi_wz[b[1], :]
                 P_zb[j] = P_zbi / P_zbi.sum()
             P_zd[i] = P_zb.sum(axis=0) / P_zb.sum(axis=0).sum()
+            
+            # 当doc中只有一个词时无法组成biterm
+            if len(d) != 0:
+                P_zd[i] = P_zb.sum(axis=0) / P_zb.sum(axis=0).sum()
+            else:
+                P_zd[i] = np.full((self.K, ), 1.0 / self.K)
 
         return P_zd
 
